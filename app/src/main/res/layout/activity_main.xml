@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:hint="@string/search"
-        android:text="Dog"
         app:layout_constraintBottom_toBottomOf="@+id/search_btn"
         app:layout_constraintEnd_toStartOf="@+id/search_btn"
         app:layout_constraintStart_toStartOf="parent"

@@ -39,6 +39,8 @@ class MainActivity : ComponentActivity() {
             if (searchEditText.text.isNotEmpty()) {
                 val searchQuery = searchEditText.text.toString()
                 viewModel.fetchFlickrPhotoData(searchQuery)
+            } else {
+                Toast.makeText(this, "Please enter a search text", Toast.LENGTH_SHORT).show()
             }
         }
 
