@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect { state ->
                 handleUiState(state)
             }
