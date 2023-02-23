@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Flickr-Exercise</string>
+    <string name="app_name">Android-Flickr-Exercise</string>
     <string name="search">Search</string>
+    <string name="shark_text">Shark</string>
 </resources>
