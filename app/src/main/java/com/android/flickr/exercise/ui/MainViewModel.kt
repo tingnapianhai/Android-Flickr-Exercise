@@ -19,7 +19,8 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<State> = _uiState
 
     fun fetchFlickrPhotoData(searchQuery: String) {
-        _uiState.value = State.Empty
+        if (searchQuery.isEmpty()) return
+        _uiState.value = State.Loading
         viewModelScope.launch {
             _uiState.value = repo.getFlickrPhotoList(searchQuery)
         }
@@ -27,6 +28,7 @@ class MainViewModel @Inject constructor(
 
     sealed class State {
         object Empty : State()
+        object Loading : State()
         object Result {
             data class Success(val data: List<FlickrPhotoItem>) : State()
             data class Error(val error: String) : State()

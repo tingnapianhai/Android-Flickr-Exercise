@@ -7,12 +7,16 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.android.flickr.exercise.R
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@Deprecated("Use compose version")
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -44,9 +48,11 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.uiState.collect { state ->
-                handleUiState(state)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    handleUiState(state)
+                }
             }
         }
     }
@@ -54,6 +60,7 @@ class MainActivity : ComponentActivity() {
     private fun handleUiState(state: MainViewModel.State) {
         when (state) {
             is MainViewModel.State.Empty -> onEmpty()
+            is MainViewModel.State.Loading -> onEmpty()
             is MainViewModel.State.Result.Success -> onSuccess(state)
             is MainViewModel.State.Result.Error -> onError(state)
         }
